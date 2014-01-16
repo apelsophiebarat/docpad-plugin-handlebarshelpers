@@ -19,7 +19,7 @@ module.exports = (BasePlugin) ->
       config = @config
       docpad = @docpad
       docpadConfig = docpad.getConfig()
-      for helperRelativePath in config.helpersExtension
+      for helperRelativePath in config.helpersExtension or []
         helperPath = pathUtil.join(docpadConfig.rootPath, helperRelativePath)
         @trace('Load handlebars helpers module '+helperRelativePath)
         helperModule = require(helperPath)

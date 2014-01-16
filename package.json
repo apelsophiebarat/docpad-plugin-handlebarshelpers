@@ -37,5 +37,8 @@
   "dependencies": {
     "extendr": "~2.1.0",
     "docpad-plugin-handlebars": "~2.2.2"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.6.3"
   }
 }
