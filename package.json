@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "description": "DocPad plugin that adds custom handlebars helpers",
-  "homepage": "https://github.com/evantill/docpad-plugin-handlebarshelpers",
+  "homepage": "https://github.com/apelsophiebarat/docpad-plugin-handlebarshelpers",
   "keywords": [
     "docpad",
     "docpad-plugin",
@@ -18,11 +18,11 @@
     "Your name <Eric Vantillard> (http://github.com/evantill)"
   ],
   "bugs": {
-    "url": "https://github.com/evantill/docpad-plugin-handlebarshelpers/issues"
+    "url": "https://github.com/apelsophiebarat/docpad-plugin-handlebarshelpers/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/evantill/docpad-plugin-handlebarshelpers.git"
+    "url": "https://github.com/apelsophiebarat/docpad-plugin-handlebarshelpers.git"
   },
   "engines": {
     "node": ">=0.8"
