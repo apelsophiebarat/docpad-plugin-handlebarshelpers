@@ -11,6 +11,18 @@ Add handlebars helpers modules easily
 docpad install handlebarshelpers
 ```
 
+## Test
+
+```
+cd <CURRENT_PLUGIN_PATH>
+cd ..
+git clone git://github.com/bevry/docpad.git
+cd docpad
+npm link
+cd ..
+npm link docpad
+cake test
+```
 
 
 ## History
@@ -24,12 +36,12 @@ This plugin is made ["public domain"](http://en.wikipedia.org/wiki/Public_domain
 If you are wanting to close-source your plugin, we suggest using the following:
 
 ```
-Copyright [Eric Vantillard](http://github.com/evantill/docpad-plugin-handlebarshelpers). All rights reserved.
+Copyright [Eric Vantillard](http://github.com/apelsophiebarat/docpad-plugin-handlebarshelpers). All rights reserved.
 ```
 
 If you are wanting to open-source your plugin, we suggest using the following:
 
 ```
 Licensed under the incredibly [permissive](http://en.wikipedia.org/wiki/Permissive_free_software_licence) [MIT License](http://creativecommons.org/licenses/MIT/)
-<br/>Copyright &copy; YEAR+ [Eric Vantillard](http://github.com/evantill/docpad-plugin-handlebarshelpers)
+<br/>Copyright &copy; YEAR+ [Eric Vantillard](http://github.com/apelsophiebarat/docpad-plugin-handlebarshelpers)
 ```
