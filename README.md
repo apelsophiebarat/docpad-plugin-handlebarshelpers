@@ -1,7 +1,7 @@
 # Handlebars Helpers Plugin for [DocPad](http://docpad.org)
 
-[![Build Status](https://secure.travis-ci.org/docpad/docpad-plugin-handlebarshelpers.png?branch=master)](http://travis-ci.org/docpad/docpad-plugin-handlebarshelpers "Check this project's build status on TravisCI")
-[![NPM version](https://badge.fury.io/js/docpad-plugin-handlebarshelpers.png)](https://npmjs.org/package/docpad-plugin-handlebarshelpers "View this project on NPM")
+[![Dependency Status](https://gemnasium.com/apelsophiebarat/docpad-plugin-handlebarshelpers.png)](https://gemnasium.com/apelsophiebarat/docpad-plugin-handlebarshelpers)
+[![Build Status](https://travis-ci.org/apelsophiebarat/docpad-plugin-handlebarshelpers.png?branch=master)](https://travis-ci.org/apelsophiebarat/docpad-plugin-handlebarshelpers "Check this project's build status on TravisCI")
 
 Add handlebars helpers modules easily
 
@@ -14,12 +14,14 @@ docpad install handlebarshelpers
 ## Test
 
 ```
-cd <CURRENT_PLUGIN_PATH>
-cd ..
 git clone git://github.com/bevry/docpad.git
 cd docpad
+npm install
+cake compile
 npm link
 cd ..
+git clone git://github.com/apelsophiebarat/docpad-plugin-handlebarshelpers.git
+cd docpad-plugin-handlebarshelpers
 npm link docpad
 cake test
 ```
