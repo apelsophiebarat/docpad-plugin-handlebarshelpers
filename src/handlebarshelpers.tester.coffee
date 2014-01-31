@@ -11,11 +11,12 @@ module.exports = (testers) ->
     docpadConfig:
       templateData:
         hello: (name) -> "Hello #{name} !"
-      
+        useContext: (templateData) -> "this is #{templateData.document.title}"
       plugins:
         handlebarshelpers:
           debug:debug
           extensions: './lib/sample-handlebars-extension'
+          useTemplateDataFunctions: true
 
       enabledPlugins:
         'marked': true

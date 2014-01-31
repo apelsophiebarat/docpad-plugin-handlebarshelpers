@@ -22,6 +22,47 @@ module.exports = (BasePlugin) ->
         else 'debug'
       @docpad.log logLevel, "[#{@name}] #{msg}"
 
+    getHandlebarsPlugin: ->
+      @handlebarsPlugin = @docpad.getPlugin('handlebars') unless @handlebarsPlugin?
+      return @handlebarsPlugin
+
+    getHandlebars: -> 
+      @handlebars = @getHandlebarsPlugin().handlebars unless @handlebars?
+      return @handlebars
+
+    getPartialPlugin: ->
+      @partialPlugin = @docpad.getPlugin('partials') unless @partialPlugin?
+      return @partialPlugin
+
+    helperAdapter = (fn) -> (context,options) ->
+      #if context is implicit
+      unless options?
+        options=context
+        context=@
+      fn(context)
+
+    partialAdapter = (templateData,name) -> (context,options) ->
+      #if context is implicit
+      unless options?
+        options=context
+        context=@
+      templateData.partial(name,context)
+
+    registerHelperFn: (name,helperFn) ->
+      @trace("Register simple function as helper #{name}")
+      @registerHelper name, helperAdapter(helperFn)
+
+    registerHelper: (name,helper) ->
+      @trace("Register helper #{name}")
+      @getHandlebars().registerHelper name+"Helper", helper
+
+    registerPartial: (name,partial) ->
+      @trace("Register partial #{name}")
+      @getHandlebars().registerPartial(name+"Partial",partial)
+
+    registerDocpadPartial: (templateData,name) ->
+      @registerPartial(name,partialAdapter(templateData,name))
+
     docpadReady: (opts,next) ->
       # Prepare
       docpad = @docpad
@@ -29,8 +70,7 @@ module.exports = (BasePlugin) ->
       {rootPath} = docpad.getConfig()
       templateData = docpad.getTemplateData()
       # Check if handlebars plugin exist
-      handlebarsPlugin = docpad.getPlugin('handlebars')
-      unless handlebarsPlugin?
+      unless @getHandlebarsPlugin()?
         docpad.log 'warn', 'handlebars plugin not installed'
         return
 
@@ -42,44 +82,27 @@ module.exports = (BasePlugin) ->
         try
           {helpers,partials} = require(extensionPath)
           for own name,helper of helpers
-            @trace("Register helper #{name}")
-            handlebarsPlugin.handlebars.registerHelper(name, helper)
+            @registerHelper(name,helper)
           for own name,partial of partials
-            @trace("Register partial #{name}")
-            handlebarsPlugin.handlebars.registerPartial(name, partial)
+            @registerPartial(name, partial)
         catch error
-          docpad.log 'error', "Error while loading extension #{helperRelativePath} :#{error}"
+          docpad.log 'error', "Error while loading extension #{extensionRelativePath} :#{error}"
           return next(error)
       
       # Register templateData functions has helpers
       if useTemplateDataFunctions
         @trace("load templateData functions has handlebars helpers")        
         for own name, helper of templateData when _.isFunction(helper)
-          @trace("Register templateData helper function #{name}")
-          handlebarsPlugin.handlebars.registerHelper(name, helper)
+          @registerHelperFn(name, helper)
 
       # Register docpad partials has handlebars partials
-      partialsPlugin = docpad.getPlugin('partials')
-      if usePartials and partialsPlugin?
+      if usePartials and @getPartialPlugin()
         @trace("Load partials")
-        {partialsPath,collectionName} = partialsPlugin.getConfig()
+        {partialsPath,collectionName} = @getPartialPlugin().getConfig()
         # Load partials
-        newPartialAdapter = (partialName) -> 
-          (context, options) -> 
-            templateData.partial(partialName,context)
         docpad.getCollection(collectionName).forEach (partialDocument) ->
-          name = partialDocument.name
-          @trace("Register partial #{name}")
-          handlebarsPlugin.handlebars.registerPartial name, newPartialAdapter(name)
+          @registerDocpadPartial(templateData,partialDocument.name)
 
       return next()
-
-
-
-
-
-
-
-
       #chain
       next()
