@@ -31,7 +31,7 @@
     "docpad": "6",
     "handlebars": "~1.3.0"
   },
-  "main": "./src/handlebarshelpers.plugin.coffee",
+  "main": "./out/handlebarshelpers.plugin.js",
   "scripts": {
     "test": "node ./out/handlebarshelpers.test.js"
   },
