@@ -3,7 +3,7 @@
 Makefile
 Cakefile
 
-out/
+src/
 out/test/
 test/
 

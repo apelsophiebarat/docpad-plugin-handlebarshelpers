@@ -54,11 +54,11 @@ module.exports = (BasePlugin) ->
 
     registerHelper: (name,helper) ->
       @trace("Register helper #{name}")
-      @getHandlebars().registerHelper name+"Helper", helper
+      @getHandlebars().registerHelper name, helper
 
     registerPartial: (name,partial) ->
       @trace("Register partial #{name}")
-      @getHandlebars().registerPartial(name+"Partial",partial)
+      @getHandlebars().registerPartial(name,partial)
 
     registerDocpadPartial: (templateData,name) ->
       @registerPartial(name,partialAdapter(templateData,name))
@@ -93,7 +93,7 @@ module.exports = (BasePlugin) ->
       if useTemplateDataFunctions
         @trace("load templateData functions has handlebars helpers")        
         for own name, helper of templateData when _.isFunction(helper)
-          @registerHelperFn(name, helper)
+          @registerHelperFn(name+"Helper", helper)
 
       # Register docpad partials has handlebars partials
       if usePartials and @getPartialPlugin()
